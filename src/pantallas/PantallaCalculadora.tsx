@@ -47,7 +47,6 @@ export default function PantallaCalculadora() {
     },
   });
 
-  // Si se reutiliza una cotización, reseteamos el formulario con esos valores y actualizamos recargos
   useEffect(() => {
     if (stateCotizacion) {
       reset({
@@ -58,7 +57,6 @@ export default function PantallaCalculadora() {
         transporte: stateCotizacion.datosEnvio.transporte,
       });
       setRecargosActivos(stateCotizacion.recargosAplicados);
-      // Limpiamos el state para que no se vuelva a cargar al refrescar
       window.history.replaceState({}, document.title);
     }
   }, [stateCotizacion, reset]);
@@ -89,13 +87,35 @@ export default function PantallaCalculadora() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto px-4 py-6 sm:py-10">
-      <h1 className="text-2xl font-bold text-slate-900 mb-6">Calculá tu envío</h1>
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
-        <fieldset className="space-y-4">
-          <legend className="text-sm font-medium text-slate-500 uppercase tracking-wide">Datos del viaje</legend>
-          <EntradaDireccion label="Origen" error={errors.origen?.message} registro={register('origen')} />
-          <EntradaDireccion label="Destino" error={errors.destino?.message} registro={register('destino')} />
+    <div className="max-w-2xl mx-auto px-4 py-8 sm:py-12">
+      {/* Encabezado sutil */}
+      <h1 className="text-xl font-semibold text-slate-800 mb-8">Nuevo cálculo</h1>
+
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+        {/* Sección 1: Origen y destino */}
+        <section className="space-y-4">
+          <h2 className="text-sm font-medium text-slate-500 uppercase tracking-wide">Recorrido</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <EntradaDireccion label="Origen" error={errors.origen?.message} registro={register('origen')} />
+            <EntradaDireccion label="Destino" error={errors.destino?.message} registro={register('destino')} />
+          </div>
+        </section>
+
+        {/* Sección 2: Transporte */}
+        <section className="space-y-4">
+          <h2 className="text-sm font-medium text-slate-500 uppercase tracking-wide">Medio de transporte</h2>
+          <Controller
+            name="transporte"
+            control={control}
+            render={({ field }) => (
+              <SelectorTransporte valor={field.value} onChange={field.onChange} />
+            )}
+          />
+        </section>
+
+        {/* Sección 3: Distancia y tiempo */}
+        <section className="space-y-4">
+          <h2 className="text-sm font-medium text-slate-500 uppercase tracking-wide">Detalles del viaje</h2>
           <div className="grid grid-cols-2 gap-4">
             <EntradaNumerica
               label="Distancia"
@@ -110,18 +130,12 @@ export default function PantallaCalculadora() {
               registro={register('tiempoMinutos', { valueAsNumber: true })}
             />
           </div>
-          <Controller
-            name="transporte"
-            control={control}
-            render={({ field }) => (
-              <SelectorTransporte valor={field.value} onChange={field.onChange} />
-            )}
-          />
-        </fieldset>
+        </section>
 
-        <fieldset>
-          <legend className="text-sm font-medium text-slate-500 uppercase tracking-wide mb-2">Recargos opcionales</legend>
-          <div className="bg-slate-50 rounded-xl p-4 space-y-2">
+        {/* Sección 4: Recargos */}
+        <section className="space-y-4">
+          <h2 className="text-sm font-medium text-slate-500 uppercase tracking-wide">Condiciones especiales</h2>
+          <div className="space-y-1">
             <InterruptorRecargo
               label="Urgencia"
               checked={recargosActivos.urgencia}
@@ -147,15 +161,16 @@ export default function PantallaCalculadora() {
               porcentaje={recargosActivos.valores.zonaComplicada}
             />
           </div>
-        </fieldset>
+        </section>
 
-        <BotonPrincipal type="submit" disabled={!isValid}>
+        <BotonPrincipal type="submit" disabled={!isValid} cargando={false}>
           Calcular precio
         </BotonPrincipal>
       </form>
 
+      {/* Resultado dominante */}
       {mostrarResultado && desglose && (
-        <div className="mt-6 space-y-4">
+        <div className="mt-12 space-y-6">
           <TarjetaResultado
             desglose={desglose}
             onCopiar={handleCopiar}

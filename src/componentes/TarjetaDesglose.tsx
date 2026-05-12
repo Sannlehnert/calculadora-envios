@@ -5,20 +5,30 @@ interface Props {
 }
 
 export default function TarjetaDesglose({ desglose }: Props) {
+  const filas = [
+    { concepto: 'Combustible (ida y vuelta)', valor: desglose.costoCombustible },
+    { concepto: 'Tiempo', valor: desglose.costoTiempo },
+    { concepto: 'Margen operativo', valor: desglose.margen },
+    ...(desglose.totalRecargos > 0
+      ? [{ concepto: 'Recargos', valor: desglose.totalRecargos, destacado: true }]
+      : []),
+    { concepto: 'Subtotal antes de mínimo', valor: desglose.antesMinimo, esSubtotal: true },
+    ...(desglose.antesMinimo < desglose.precioFinal
+      ? [{ concepto: 'Ajuste al mínimo', valor: desglose.precioFinal, esTotal: true }]
+      : []),
+  ];
+
   return (
-    <div className="bg-slate-50 rounded-xl p-4 space-y-2 text-sm">
-      <h3 className="font-medium text-slate-700 mb-2">Detalle del precio</h3>
-      <div className="flex justify-between"><span>Combustible (ida y vuelta)</span><span>${desglose.costoCombustible.toFixed(2)}</span></div>
-      <div className="flex justify-between"><span>Tiempo</span><span>${desglose.costoTiempo.toFixed(2)}</span></div>
-      <div className="flex justify-between"><span>Margen operativo</span><span>${desglose.margen.toFixed(2)}</span></div>
-      {desglose.totalRecargos > 0 && (
-        <div className="flex justify-between text-amber-700 font-medium"><span>Recargos</span><span>${desglose.totalRecargos.toFixed(2)}</span></div>
-      )}
-      <hr className="border-slate-200" />
-      <div className="flex justify-between font-medium"><span>Subtotal</span><span>${desglose.antesMinimo.toFixed(2)}</span></div>
-      {desglose.antesMinimo < desglose.precioFinal && (
-        <div className="flex justify-between text-slate-500"><span>Ajuste al mínimo</span><span>${desglose.precioFinal.toFixed(2)}</span></div>
-      )}
+    <div className="space-y-3">
+      <h3 className="text-sm font-medium text-slate-500">Detalle del precio</h3>
+      <ul className="divide-y divide-slate-200 text-sm">
+        {filas.map((fila, i) => (
+          <li key={i} className={`flex justify-between py-2 ${fila.destacado ? 'text-amber-700 font-medium' : ''} ${fila.esSubtotal ? 'font-medium text-slate-800 border-t border-slate-300' : ''} ${fila.esTotal ? 'text-slate-600' : ''}`}>
+            <span>{fila.concepto}</span>
+            <span>${fila.valor.toFixed(2)}</span>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }

@@ -9,26 +9,26 @@ export default function PantallaHistorial() {
   const navigate = useNavigate();
 
   const manejarReutilizar = (cotizacion: Cotizacion) => {
-    // Pasamos la cotización completa a la calculadora mediante el state de la ruta
-    navigate('/', { state: { cotizacion } });
+    navigate('/calculadora', { state: { cotizacion } });
   };
 
   return (
-    <div className="max-w-2xl mx-auto px-4 py-6 sm:py-10">
-      <h1 className="text-2xl font-bold text-slate-900 mb-6">Historial de envíos</h1>
+    <div className="max-w-2xl mx-auto px-4 py-8 sm:py-12">
+      <h1 className="text-xl font-semibold text-slate-800 mb-8">Historial de envíos</h1>
       {historial.length === 0 ? (
         <NotificacionEstado mensaje="Todavía no hay cotizaciones guardadas." tipo="info" />
       ) : (
-        <div className="space-y-3">
+        <ul className="divide-y divide-slate-200">
           {historial.map((cot) => (
-            <ResumenCotizacion
-              key={cot.id}
-              cotizacion={cot}
-              onSeleccionar={() => manejarReutilizar(cot)}
-              onEliminar={eliminarCotizacion}
-            />
+            <li key={cot.id}>
+              <ResumenCotizacion
+                cotizacion={cot}
+                onSeleccionar={manejarReutilizar}
+                onEliminar={eliminarCotizacion}
+              />
+            </li>
           ))}
-        </div>
+        </ul>
       )}
     </div>
   );

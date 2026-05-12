@@ -9,22 +9,24 @@ interface Props {
 
 export default function TarjetaResultado({ desglose, onCopiar, onGuardar, onNuevoCalculo }: Props) {
   return (
-    <section className="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-4">
-      <h2 className="text-lg font-semibold text-slate-800">Precio final</h2>
-      <p className="text-4xl font-bold text-slate-900">
-        ${desglose.precioFinal.toLocaleString('es-AR', { minimumFractionDigits: 2 })}
-      </p>
-      <div className="flex flex-col sm:flex-row gap-2">
-        <button onClick={onCopiar} className="flex-1 text-sm bg-slate-100 hover:bg-slate-200 px-4 py-2 rounded-lg transition-colors">
-          Copiar precio
+    <div className="bg-slate-50 rounded-xl p-6 sm:p-8">
+      <div className="text-center mb-6">
+        <p className="text-sm text-slate-500 mb-2">Precio sugerido</p>
+        <p className="text-5xl sm:text-6xl font-bold text-slate-900 tracking-tight">
+          ${desglose.precioFinal.toLocaleString('es-AR', { minimumFractionDigits: 2 })}
+        </p>
+      </div>
+      <div className="flex flex-col sm:flex-row gap-3 justify-center">
+        <button onClick={onCopiar} className="flex-1 bg-white border border-slate-200 px-4 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:bg-slate-50 transition">
+          Copiar
         </button>
-        <button onClick={onGuardar} className="flex-1 text-sm bg-blue-600 text-white hover:bg-blue-700 px-4 py-2 rounded-lg transition-colors">
-          Guardar en historial
+        <button onClick={onGuardar} className="flex-1 bg-blue-600 text-white px-4 py-2.5 rounded-lg text-sm font-medium hover:bg-blue-700 transition">
+          Guardar
         </button>
-        <button onClick={onNuevoCalculo} className="flex-1 text-sm border border-slate-300 hover:bg-slate-50 px-4 py-2 rounded-lg transition-colors">
-          Nuevo cálculo
+        <button onClick={onNuevoCalculo} className="flex-1 bg-white border border-slate-200 px-4 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:bg-slate-50 transition">
+          Nuevo
         </button>
       </div>
-    </section>
+    </div>
   );
 }

@@ -17,16 +17,17 @@ export default function DiseñoPrincipal({ children }: { children: React.ReactNo
       <header className="bg-white border-b border-slate-200 py-4 px-6 hidden sm:block">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <Logo />
-          <nav className="flex gap-6 text-sm text-slate-600">
-            {enlaces.map(({ to, label }) => (
+          <nav className="flex gap-4 text-slate-600">
+            {enlaces.map(({ to, label, Icon }) => (
               <Link
                 key={to}
                 to={to}
-                className={`hover:text-blue-600 transition-colors ${
-                  location.pathname === to ? 'text-blue-600 font-medium' : ''
+                aria-label={label}
+                className={`p-2 rounded-lg hover:bg-slate-100 transition-colors ${
+                  location.pathname === to ? 'text-blue-600 bg-blue-50' : ''
                 }`}
               >
-                {label}
+                <Icon size={20} />
               </Link>
             ))}
           </nav>
@@ -36,17 +37,17 @@ export default function DiseñoPrincipal({ children }: { children: React.ReactNo
       <main className="flex-1 pb-20 sm:pb-6">{children}</main>
 
       {/* Navegación móvil inferior */}
-      <nav className="fixed bottom-0 inset-x-0 bg-white border-t border-slate-200 flex justify-around py-2 sm:hidden">
+      <nav className="fixed bottom-0 inset-x-0 bg-white border-t border-slate-200 flex justify-around py-3 sm:hidden">
         {enlaces.map(({ to, label, Icon }) => (
           <Link
             key={to}
             to={to}
-            className={`flex flex-col items-center gap-1 text-xs ${
+            aria-label={label}
+            className={`p-2 rounded-lg ${
               location.pathname === to ? 'text-blue-600' : 'text-slate-500'
             }`}
           >
-            <Icon size={20} />
-            {label}
+            <Icon size={22} />
           </Link>
         ))}
       </nav>

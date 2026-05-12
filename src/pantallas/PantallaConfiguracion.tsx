@@ -33,11 +33,11 @@ export default function PantallaConfiguracion() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto px-4 py-6 sm:py-10">
-      <h1 className="text-2xl font-bold text-slate-900 mb-6">Configuración</h1>
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
-        <fieldset className="space-y-4">
-          <legend className="text-sm font-medium text-slate-500 uppercase tracking-wide">Parámetros de negocio</legend>
+    <div className="max-w-2xl mx-auto px-4 py-8 sm:py-12">
+      <h1 className="text-xl font-semibold text-slate-800 mb-8">Configuración de negocio</h1>
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+        <section className="space-y-4">
+          <h2 className="text-sm font-medium text-slate-500 uppercase tracking-wide">Parámetros</h2>
           <div className="grid grid-cols-2 gap-4">
             <EntradaNumerica
               label="Precio combustible"
@@ -76,11 +76,11 @@ export default function PantallaConfiguracion() {
               registro={register('redondeoMultiplo', { valueAsNumber: true })}
             />
           </div>
-        </fieldset>
+        </section>
 
-        <fieldset>
-          <legend className="text-sm font-medium text-slate-500 uppercase tracking-wide mb-2">Valores de recargos</legend>
-          <div className="bg-slate-50 rounded-xl p-4 space-y-2">
+        <section className="space-y-4">
+          <h2 className="text-sm font-medium text-slate-500 uppercase tracking-wide">Recargos por defecto</h2>
+          <div className="space-y-1">
             <InterruptorRecargo
               label="Urgencia"
               checked={recargosLocales.urgencia}
@@ -106,11 +106,11 @@ export default function PantallaConfiguracion() {
               porcentaje={recargosLocales.valores.zonaComplicada}
             />
           </div>
-          <p className="text-xs text-slate-500 mt-2">Los porcentajes de recargo se pueden editar en una versión futura.</p>
-        </fieldset>
+          <p className="text-xs text-slate-400">Los porcentajes de recargo se editarán en una versión futura.</p>
+        </section>
 
         <BotonPrincipal type="submit" disabled={!isDirty}>
-          Guardar configuración
+          Guardar cambios
         </BotonPrincipal>
       </form>
     </div>
