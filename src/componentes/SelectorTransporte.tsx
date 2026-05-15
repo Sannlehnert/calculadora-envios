@@ -1,4 +1,4 @@
-import { Car, Motorbike, Truck, Bike } from 'lucide-react';
+import { Car, Bike, Truck, Footprints, Motorbike } from 'lucide-react';
 
 const opciones = [
   { valor: 'auto', label: 'Auto', Icono: Car },
@@ -16,13 +16,13 @@ export default function SelectorTransporte({ valor, onChange }: Props) {
   return (
     <div>
       <p className="text-sm font-medium text-slate-700 mb-2">Medio de transporte</p>
-      <div className="grid grid-cols-4 gap-2">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
         {opciones.map(({ valor: v, label, Icono }) => (
           <button
             key={v}
             type="button"
             onClick={() => onChange(v)}
-            className={`flex flex-col items-center gap-1 p-2 rounded-lg border transition-all ${
+            className={`flex flex-col items-center gap-1 p-3 rounded-lg border transition-all ${
               valor === v
                 ? 'border-blue-600 bg-blue-50 text-blue-700 shadow-sm'
                 : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300'

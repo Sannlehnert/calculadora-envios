@@ -87,12 +87,12 @@ export default function PantallaCalculadora() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto px-4 py-8 sm:py-12">
-      {/* Encabezado sutil */}
+    <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+      {/* Encabezado */}
       <h1 className="text-xl font-semibold text-slate-800 mb-8">Nuevo cálculo</h1>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
-        {/* Sección 1: Origen y destino */}
+        {/* Recorrido */}
         <section className="space-y-4">
           <h2 className="text-sm font-medium text-slate-500 uppercase tracking-wide">Recorrido</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -101,7 +101,7 @@ export default function PantallaCalculadora() {
           </div>
         </section>
 
-        {/* Sección 2: Transporte */}
+        {/* Transporte */}
         <section className="space-y-4">
           <h2 className="text-sm font-medium text-slate-500 uppercase tracking-wide">Medio de transporte</h2>
           <Controller
@@ -113,10 +113,10 @@ export default function PantallaCalculadora() {
           />
         </section>
 
-        {/* Sección 3: Distancia y tiempo */}
+        {/* Detalles del viaje */}
         <section className="space-y-4">
           <h2 className="text-sm font-medium text-slate-500 uppercase tracking-wide">Detalles del viaje</h2>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <EntradaNumerica
               label="Distancia"
               unidad="km"
@@ -132,7 +132,7 @@ export default function PantallaCalculadora() {
           </div>
         </section>
 
-        {/* Sección 4: Recargos */}
+        {/* Condiciones especiales */}
         <section className="space-y-4">
           <h2 className="text-sm font-medium text-slate-500 uppercase tracking-wide">Condiciones especiales</h2>
           <div className="space-y-1">
@@ -168,7 +168,7 @@ export default function PantallaCalculadora() {
         </BotonPrincipal>
       </form>
 
-      {/* Resultado dominante */}
+      {/* Resultado */}
       {mostrarResultado && desglose && (
         <div className="mt-12 space-y-6">
           <TarjetaResultado

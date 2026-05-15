@@ -10,11 +10,9 @@ interface Props {
 }
 
 export default function EntradaNumerica({ label, unidad, error, registro, ...rest }: Props) {
-  // Extraemos el onChange que viene de RHF para manipularlo
   const { onChange: rhfOnChange, ...restRegistro } = registro;
 
   const manejarCambio = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // Reemplazamos coma por punto para que sea un número válido
     const valorConPunto = e.target.value.replace(',', '.');
     e.target.value = valorConPunto;
     rhfOnChange(e);

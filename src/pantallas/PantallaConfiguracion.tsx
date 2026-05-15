@@ -33,12 +33,13 @@ export default function PantallaConfiguracion() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto px-4 py-8 sm:py-12">
+    <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
       <h1 className="text-xl font-semibold text-slate-800 mb-8">Configuración de negocio</h1>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+        {/* Parámetros */}
         <section className="space-y-4">
           <h2 className="text-sm font-medium text-slate-500 uppercase tracking-wide">Parámetros</h2>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <EntradaNumerica
               label="Precio combustible"
               unidad="$/lt"
@@ -78,6 +79,7 @@ export default function PantallaConfiguracion() {
           </div>
         </section>
 
+        {/* Recargos por defecto */}
         <section className="space-y-4">
           <h2 className="text-sm font-medium text-slate-500 uppercase tracking-wide">Recargos por defecto</h2>
           <div className="space-y-1">
